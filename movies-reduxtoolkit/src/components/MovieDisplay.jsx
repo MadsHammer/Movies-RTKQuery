@@ -9,18 +9,15 @@ function MovieDisplay() {
 
   const { data: catData, isLoading: catLoading, isError: catError} = useGetMoviesQuery(category);
   
-  const { data: searchData, isLoading: searchLoading, isError: searchError } = useGetMovieSearchQuery(searchTerm, {
+  const { data: searchData, isFetching: searchLoading, isError: searchError } = useGetMovieSearchQuery(searchTerm, {
     skip: searchTerm.length < 3,
   });
 
   if (catLoading) return <div className="flex justify-center p-10 text-xl font-bold">Loading...</div>;
   if (catError) return <div className="text-red-500 p-10">Something went wrong!</div>;
-
-  if (searchLoading) return <div className="flex justify-center p-10 text-xl font-bold">Searching...</div>;
-  if (searchError) return <div className="text-red-500 p-10">Something went wrong!</div>;
  
-  const isSearching = searchTerm.length >= 3;
-  const movies = isSearching ? searchData : catData;
+const isSearching = searchTerm.length >= 3;
+const movies = isSearching ? searchData : catData;
 
   return (
     <div className="bg-gray-900 min-h-screen text-white p-6">

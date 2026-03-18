@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-import MovieDisplay from '../components/MovieDisplay';
-import MovieDetail from '../components/MovieDetail.jsx';
+import MovieDisplay from '../components/MovieDisplay.jsx';
+import MovieDetail from '../components/MovieDetail.tsx';
 import Favorites from '../components/Favorites.jsx'
 import App from '../App.jsx';
 
