@@ -3,31 +3,32 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export const movieAPI = createApi({
-  reducerPath: 'movieAPI', // Unique name for the store
+  reducerPath: 'movieAPI',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
   endpoints: (builder) => ({
-    // This is our dynamic endpoint!
     getMovies: builder.query({
-      query: (category) => {
-    if (category === 'upcoming') {
-      return `movie/upcoming?api_key=${API_KEY}&region=DK`; 
-    }
-    return `movie/${category}?api_key=${API_KEY}`;
-  },
-      transformResponse: (response) => response.results,
+      query: (category) => ({
+        url: category === 'upcoming' ? 'movie/upcoming' : `movie/${category}`,
+        params: { 
+          api_key: API_KEY,
+          region: category === 'upcoming' ? 'DK' : undefined 
+        },
+      }),
     }),
-    // 2. Get by Search Term
+
     getMovieSearch: builder.query({
-      query: (searchTerm) => `search/movie?api_key=${API_KEY}&query=${searchTerm}`,
-      transformResponse: (response) => response.results,
+      query: (searchTerm) => ({
+        url: 'search/movie',
+        params: { api_key: API_KEY, query: searchTerm },
+      }),
     }),
 
-    // 3. Get a Single Movie's Details (using an ID)
     getMovieDetails: builder.query({
-      query: (movieId) => `movie/${movieId}?api_key=${API_KEY}`,
+      query: (movieId) => ({
+        url: `movie/${movieId}`,
+        params: { api_key: API_KEY },
+      }),
     }), 
-
-
   }),
 });
 

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { movieAPI } from "../services/movieAPI";
+
 export const store = configureStore({
   reducer: {
     // We use the dynamic 'reducerPath' we defined in the service (usually 'movieApi')
