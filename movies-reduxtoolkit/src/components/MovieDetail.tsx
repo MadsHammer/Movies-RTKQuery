@@ -6,7 +6,9 @@ function MovieDetail() {
   const { id } = useParams<{ id: string }>(); 
   const navigate = useNavigate();
   
-  const { data: movie, isLoading, isError } = useGetMovieDetailsQuery(id);
+const { data: movie, isLoading, isError } = useGetMovieDetailsQuery(id ?? "", {
+  skip: !id,
+});
 
   if (isLoading) return <div className="flex justify-center p-20 text-blue-500 font-bold">Henter biografen...</div>;
   if (isError || !movie) return <div className="text-red-500 p-20 text-center">Filmen kunne ikke findes.</div>;

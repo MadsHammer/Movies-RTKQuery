@@ -17,6 +17,8 @@ function MovieDisplay() {
       skip: searchTerm.length < 3,
     });
 
+    
+
   if (catLoading)
     return (
       <div className="flex justify-center p-10 text-xl font-bold">
